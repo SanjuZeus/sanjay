@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ImageGalleryApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #39b3aa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .image-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-item:hover .image-details {
+            opacity: 1;
+        }
+
+        .image-details h3 {
+            margin: 0;
+        }
+
+        .image-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+  <h1 align="center">IMAGE CORRIDOR</h1>
+    <div class="image-gallery" ng-controller="GalleryController">
+        <div class="image-item" ng-repeat="image in images" ng-click="showDetails(image)">
+            <img ng-src="{{image.src}}" alt="{{image.title}}">
+            <div class="image-details">
+                <div>
+                    <h3>{{image.title}}</h3>
+                    <p>{{image.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        angular.module('ImageGalleryApp', [])
+            .controller('GalleryController', function ($scope) {
+                $scope.images = [
+                    {
+                        src: 'https://cdn.pixabay.com/photo/2019/11/06/05/15/lishui-4605201_640.jpg',
+                        title: 'Image 1',
+                        description: 'A man Walking on a silent bridge.'
+                    },
+                    {
+                        src: 'https://cdn.pixabay.com/photo/2020/09/29/12/48/lake-5612720_640.jpg',
+                        title: 'Image 2',
+                        description: 'Sun Kissed Mountain View.'
+                    },
+                    {
+                        src: 'https://cdn.pixabay.com/photo/2013/07/25/01/33/boat-166738_640.jpg',
+                        title: 'Image 3',
+                        description: 'An Evening View of the Seashore.'
+                    },
+                    {
+                        src: 'https://cdn.pixabay.com/photo/2024/01/31/19/25/sunset-8544672_640.jpg',
+                        title: 'Image 4',
+                        description: 'Taking a Snap Of Sun from The Sea.'
+                    }
+                ];
+
+                $scope.showDetails = function (image) {
+                    alert('Title: ' + image.title + '\nDescription: ' + image.description);
+                };
+            });
+    </script>
+</body>
+</html>
